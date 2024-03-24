@@ -24,8 +24,6 @@ This project is aimed at implementing CRUD (Create, Read, Update, Delete) operat
 
 - Node.js
 
-- AWS CLI
-
 - Serverless Framework
 
 ### Configuration
@@ -36,7 +34,13 @@ This project is aimed at implementing CRUD (Create, Read, Update, Delete) operat
 npm  install
 ```
 
-2.  **Deploy to AWS**:
+2.  **Install Serverless dependencies**:
+
+```bash
+npm install -g serverless
+```
+
+3.  **Deploy to AWS**:
 
 ```bash
 serverless  deploy
@@ -261,7 +265,7 @@ The decision to organize the functions in separate JavaScript files was taken, b
 
 - Parallel Development: Teams can work on different functions simultaneously without much conflict or need for coordination.
 
-- Avoid Deployment Overhead: Updating any part of the code requires redeploying all functions, even if only one function changed if we have all resources in one JS file.
+- Avoid Deployment Overhead: Updating any part of the code requires redeploying all functions, even if only one function changed if we have all resources in one JS file. If we have seperate JS files we can deploy them seperately
 
 As it is a small scale project tarting with a single file can be quick and convenient. As the project grows or this project is being worked in a team, separate files per function offer better organization, maintainability, and scalability.
 
