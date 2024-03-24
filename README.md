@@ -155,7 +155,9 @@ If you don't sepcify the Authentication you will receive `403-Forbidden error`
 }
 ```
 
-- InValid `dealId`
+<img width="1176" alt="Screenshot 2024-03-24 at 16 13 27" src="https://github.com/Vidyapiratha/dealmgt/assets/35691302/ab69b476-8438-447b-bf59-da9e709aa130">
+
+- Invalid `dealId`
 
 ```json
 {
@@ -217,7 +219,7 @@ Trying to update dealOwnerId - 403
 }
 ```
 
-- InValid `dealId`
+- Invalid `dealId`
 
 ```json
 {
@@ -229,33 +231,33 @@ Trying to update dealOwnerId - 403
 
 - **Endpoint**: `GET /deals?dealOwnerId={ownerId}`
 
-This is an optional endpoint to fetch all the deals for a specific dealOwner with the assumption that a deal owner can have multiple deals.
+This is an optional endpoint to fetch all the deals for a specific deal owner with the assumption that a deal owner can have multiple deals.
 
 ## REST API Principals
 
-- For CRUD operations on individual deals, such as reading (GET), updating (PUT), and deleting (DELETE) a deal, the dealId is used as a path parameter. This is because these operations are intended to act on a single, specific deal resource, and the dealId uniquely identifies that resource.
+- For CRUD operations on individual deals, such as reading (GET), updating (PUT), and deleting (DELETE) a deal, the `dealId` is used as a path parameter. This is because these operations are intended to act on a single, specific deal resource, and the `dealId` uniquely identifies that resource.
 
 - For filtering deals by the owner ID, a query parameter is used (GET /deals?dealOwnerId={ownerId}). This allows clients to retrieve a subset of deals based on certain criteria (in this case, the owner ID) without specifying a single, unique resource. Query parameters provide flexibility in retrieving data from a collection based on varying requirements.
 
-- By including the version number (/v1/) in the path, we can easily manage and deploy new versions of your API (such as /v2/) in the future without affecting existing clients. When we introduce breaking changes, increment the version number in the path to signify a new version of the API that may not be backward compatible.
+- By including the version number (/v1/) in the path, we can easily manage and deploy new versions of your API (such as /v2/) in the future without affecting existing clients. When we introduce breaking changes, increment the version number in the path to signify a new version of the API that may not be backwards compatible.
 
 ## Database Choice and Reasoning
 
 The application uses AWS DynamoDB for its database needs. DynamoDB was chosen for its scalability, fully managed service, and seamless integration with AWS Lambda and the Serverless Framework. It supports the flexible schema required for the varied attributes of deal records.
 
-As we are using Serverless Framework with Node.js, DynamoDB is a natural fit. It integrates seamlessly with AWS Lambda, allowing to build a fully serverless application that is easy to deploy, manage, and scale. This compatibility can significantly reduce operational complexity and cost.
+As we are using a Serverless Framework with Node.js, DynamoDB is a natural fit. It integrates seamlessly with AWS Lambda, allowing to build a fully serverless application that is easy to deploy, manage, and scale. This compatibility can significantly reduce operational complexity and cost.
 
 DynamoDB supports a flexible schema. Each record (item) in a table can have any number of attributes (although there is a maximum limit on item size). This flexibility can be particularly useful in applications in this deal management system, where the data model might evolve over time when the business grows.
 
 DynamoDB offers single-digit millisecond latency for read and write operations, which is crucial for applications requiring fast and consistent response times. For an application managing deals and sales, quick access to data can enhance user experience and operational efficiency.
 
-We are not performing any complex join operations or dealing with rigid schemas. Hence the choice was to go forward with a nosql DB, and dynamo DB was selected as it fit in to the AWS eco system with all the above listed benefits.
+We are not performing any complex joint operations or dealing with rigid schemas. Hence the choice was to go forward with a NoSQL DB, and dynamo DB was selected as it fits into the AWS ecosystem with all the above-listed benefits.
 
 Contributions are welcome. Please follow the standard fork and pull request workflow.
 
 ## Code Design decisions
 
-### Seperate JS Files
+### Separate JS Files
 
 The decision to organize the functions in separate JavaScript files was taken, because;
 
@@ -265,9 +267,9 @@ The decision to organize the functions in separate JavaScript files was taken, b
 
 - Parallel Development: Teams can work on different functions simultaneously without much conflict or need for coordination.
 
-- Avoid Deployment Overhead: Updating any part of the code requires redeploying all functions, even if only one function changed if we have all resources in one JS file. If we have seperate JS files we can deploy them seperately
+- Avoid Deployment Overhead: Updating any part of the code requires redeploying all functions, even if only one function changed if we have all resources in one JS file. If we have separate JS files we can deploy them separately
 
-As it is a small scale project tarting with a single file can be quick and convenient. As the project grows or this project is being worked in a team, separate files per function offer better organization, maintainability, and scalability.
+As it is a small-scale project starting with a single file can be quick and convenient. As the project grows or this project is being worked in a team, separate files per function offer better organization, maintainability, and scalability.
 
 Given the context of CRUD operations for a "deals" application, if the functions share a lot of common setup or utility code, starting in a single file could be reasonable. However, considering future expansion, ease of maintenance, and the benefits of modularity, separating functions into different files is generally advisable.
 
@@ -275,4 +277,4 @@ Given the context of CRUD operations for a "deals" application, if the functions
 
 HTTP APIs are optimized for performance. They offer faster and more efficient API execution than REST APIs in API Gateway, For a Deals Management Application, where responsiveness can enhance user experience, the low-latency nature of HTTP APIs is advantageous.
 
-HTTP APIs are generally more cost-effective than REST APIs. They come at a lower cost for API calls and data transfer, making them a budget-friendly option, especially for applications with high traffic. This cost efficiency does not come at the expense of scalability or reliability, making HTTP APIs a compelling option for a small scale project like this.
+HTTP APIs are generally more cost-effective than REST APIs. They come at a lower cost for API calls and data transfer, making them a budget-friendly option, especially for applications with high traffic. This cost efficiency does not come at the expense of scalability or reliability, making HTTP APIs a compelling option for a small-scale project like this.
